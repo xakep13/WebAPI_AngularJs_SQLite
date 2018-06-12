@@ -1,24 +1,60 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+﻿@{
+    ViewBag.Title = "Welcome";
+
+}
+
+<style>
+    table, tr, td, th {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px;
+        margin: auto;
+    }
+</style>
+
+<body data-ng-app="APIModule">
+
+    <hr /><hr />
+    <h2>Items</h2>
+    <div id="tblSubs" ng-controller="APIController">
+
+        <div class="form-group" style="border: solid 1px; display:flex;">
+            <input style="margin:10px;" type="text" placeholder="Item Name" class="form-control" id="name" placeholder="Enter name" [required="string" ] data-ng-model="name" />
+            <input style="margin:10px;" type="text" placeholder="Item Type" class="form-control" id="type" placeholder="Enter type" [required="string" ] data-ng-model="type" />
+            <button style="margin:10px;" type="button" class="btn btn-default" data-ng-click="saveItem();">Submit</button>
+        </div>
+        <hr />
+
+        <div class="container">
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover tabel-condensed">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Item Type</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in items">
+                                <td ng-blur="updName(item,$event)" ng-dblclick="makeEditable($event)">{{item.Name}}</td>
+                                <td ng-blur="updType(item,$event)" ng-dblclick="makeEditable($event)">{{item.Type}}</td>
+                                <td> <input type="button" id="Delete" value="Delete" data-ng-click="dltItem(item.Id)" /> </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td align="center" colspan="6">
+                                    <ul class="pagination">                                      
+                                        <li ng-repeat="n in range(1,totalPage)" ng-click="ChangeData(n)" ng-class="(n==index)?'page-item active':'page-item'" ><a href="#">{{n}}</a></li>                                          
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
-</div>
+</body>
